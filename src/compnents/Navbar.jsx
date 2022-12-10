@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AiOutlineMenu,
   AiOutlineSearch,
@@ -12,15 +12,20 @@ import { MdFavorite, MdHelp } from "react-icons/md";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-
+  useEffect(() => {
+    if (nav) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [nav]);
   return (
     <div className='max-w-[1640px] mx-auto flex justify-between items-center p-4'>
       {/* Left side */}
       <div className='flex items-center'>
         <div
           onClick={() => setNav(!nav)}
-          className='cursor-pointer'
-        >
+          className='cursor-pointer'>
           <AiOutlineMenu size={30} />
         </div>
         <h1 className='text-2xl sm:text-3xl lg:text-4xl px-2'>
@@ -64,8 +69,7 @@ const Navbar = () => {
           nav
             ? "fixed top-0 left-0 w-[300px] h-screen bg-white z-10 duration-300"
             : "fixed top-0 left-[-100%] w-[300px] h-screen bg-white z-10 duration-300"
-        }
-      >
+        }>
         <AiOutlineClose
           onClick={() => setNav(!nav)}
           size={30}
